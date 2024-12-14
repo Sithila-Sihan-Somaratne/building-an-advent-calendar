@@ -6,7 +6,7 @@ const calendarDays = 24;
 const openDoor = (path, event) => {
     event.target.parentNode.style.backgroundImage = `url(${path})`;
     event.target.style.opacity = "0";
-    event.target.style.backgroundColor = "#521751";
+    event.target.style.backgroundColor = "#fff";
 }
 
 const createCalendar = () => {
@@ -22,12 +22,19 @@ const createCalendar = () => {
         calendarDoorText.innerHTML = i + 1;
         calendarDoor.appendChild(calendarDoorText);
 
-        courseNumber = i + 1;
-        let coursePath = `./courses/course-${courseNumber}.jpg`;
+        let imagePath = ""
+        imageNumber = i + 1;
+        imagePath = `./images/image-${imageNumber}.gif`;
+        
 
-        calendarDoorText.addEventListener("click", openDoor.bind(null,  coursePath));
+        calendarDoorText.addEventListener("click", openDoor.bind(null,  imagePath));
     }
 }
 
 calendarButton.addEventListener("click", createCalendar);
 
+const surprise = document.querySelector("#surprise");
+xmasDate = new Date("December 25")
+if(Date.now == xmasDate){
+    surprise.innerHTML = `<img class="img_xmas" data-aos="fade-in" data-aos-duration="5000" src="images/ronin.webp" alt="Ronin Malli">`;
+}
