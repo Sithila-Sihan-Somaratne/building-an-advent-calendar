@@ -10,13 +10,10 @@ const openDoor = (path, event) => {
     event.target.style.opacity = "0";
     event.target.style.backgroundColor = "#fff";
 
-    const doorNumber = parseInt(event.target.innerHTML);
-    if (!openedDoors.includes(doorNumber)) {
-        openedDoors.push(doorNumber);
-    }
+    const r = /\d+/;
 
-    openedDoors.sort((a, b) => a - b);
-
+    openedDoors.push(path.match(r));
+    
     document.getElementById("list-num").innerHTML = `The opened number doors are ${openedDoors.join(', ')}`;
 }
 
@@ -37,17 +34,8 @@ const createCalendar = () => {
 
         let imagePath = `./images/image-${i + 1}.gif`;
 
-        if (currentDate === i + 1) {
+        if (currentDate >= i + 1) {
             calendarDoorText.addEventListener("click", openDoor.bind(null, imagePath));
-        } else {
-            if (currentDate > i + 1) {
-                openedDoors.push(i + 1);
-                const mockEvent = {
-                    target: calendarDoorText,
-                    preventDefault: () => { },
-                };
-                openDoor(imagePath, mockEvent);
-            }
         }
     }
 
