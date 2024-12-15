@@ -1,20 +1,32 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
     color: #fff;
-    height: 100vh;
+    height: 100%;
     background-image: url("./images/background.jpg");
     background-size: cover;                      
     background-repeat: no-repeat;
 }
 
 .box{
-    padding: 10px;
+    padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+.row{
+    padding: 30px;
+}
+
+@media (max-width: 800px) {
+    .box{
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -72,8 +84,8 @@ a:hover{
     background-position: center;
 }
 
-.img_xmas{
-    float: right;
+#xmas{
+    margin: auto;
 }
 
 .text {
@@ -81,7 +93,6 @@ a:hover{
     width: 100%;
     font-weight: bold;
     font-size: 50px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     color: yellow;
     padding: 10px;

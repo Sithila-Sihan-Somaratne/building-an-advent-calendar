@@ -3,14 +3,27 @@ const calendarContainer = document.querySelector(".container");
 
 const calendarDays = 24;
 
+let openedDoors = [];
+
 const openDoor = (path, event) => {
     event.target.parentNode.style.backgroundImage = `url(${path})`;
     event.target.style.opacity = "0";
     event.target.style.backgroundColor = "#fff";
+
+    const doorNumber = parseInt(event.target.innerHTML);
+    if (!openedDoors.includes(doorNumber)) {
+        openedDoors.push(doorNumber);
+    }
+
+    openedDoors.sort((a, b) => a - b);
+
+    document.getElementById("list-num").innerHTML = `The opened number doors are ${openedDoors.join(', ')}`;
 }
 
 const createCalendar = () => {
-    for(let i = 0; i  < calendarDays; i++) {
+    const currentDate = new Date().getDate();
+
+    for (let i = 0; i < calendarDays; i++) {
         const calendarDoor = document.createElement("div");
         const calendarDoorText = document.createElement("div");
 
@@ -22,19 +35,33 @@ const createCalendar = () => {
         calendarDoorText.innerHTML = i + 1;
         calendarDoor.appendChild(calendarDoorText);
 
-        let imagePath = ""
-        imageNumber = i + 1;
-        imagePath = `./images/image-${imageNumber}.gif`;
-        
+        let imagePath = `./images/image-${i + 1}.gif`;
 
-        calendarDoorText.addEventListener("click", openDoor.bind(null,  imagePath));
+        if (currentDate === i + 1) {
+            calendarDoorText.addEventListener("click", openDoor.bind(null, imagePath));
+        } else {
+            if (currentDate > i + 1) {
+                openedDoors.push(i + 1);
+                const mockEvent = {
+                    target: calendarDoorText,
+                    preventDefault: () => { },
+                };
+                openDoor(imagePath, mockEvent);
+            }
+        }
     }
-}
+
+    openedDoors.sort((a, b) => a - b);
+    document.getElementById("list-num").innerHTML = `The opened number doors are ${openedDoors.join(', ')}`;
+
+    calendarButton.disabled = true;
+};
 
 calendarButton.addEventListener("click", createCalendar);
 
 const surprise = document.querySelector("#surprise");
 xmasDate = new Date("December 25")
-if(Date.now == xmasDate){
-    surprise.innerHTML = `<img class="img_xmas" data-aos="fade-in" data-aos-duration="5000" src="images/ronin.webp" alt="Ronin Malli">`;
+if (Date.now == xmasDate) {
+    surprise.innerHTML = `<img class="img_xmas" data-aos="fade-in" data-aos-duration="5000" src="./images/xmas.jpg" alt="Ronin Malli" style="width:50%;">`;
 }
+document.getElementById("countdown").innerHTML = `So, try to be patient... because there are ${xmasDate.getDate() - new Date().getDate()} days left to see it!`;
